@@ -140,22 +140,6 @@ bo taki moduł czyta z pinu 2 i oczekuje masy na pinie 5. Umieszczenie zasilania
 na pinie 1 DB9 jest typowe dla sprzętu POS, ale niezgodne ze standardem RS-232,
 gdzie pin 1 to DCD.
 
-## Poziomy elektryczne
-
-**Sygnał to prawdziwy RS-232, około ±10 V.** Nie TTL, mimo że złącze RJ45 niesie
-VCC i GND obok linii danych.
-
-To najkosztowniejsza pomyłka w całym przedsięwzięciu. Obecność 5 V na pinie 1
-sugeruje logikę 5-woltową, ale linia danych pracuje pełnymi poziomami RS-232.
-
-**Dzielnik rezystorowy nie zadziała i uszkodzi wejście mikrokontrolera.** Nie
-usuwa napięcia ujemnego, a przy dodatnim połówku przekracza dopuszczalne 3,3 V.
-Objaw w danych to bajty w rodzaju `0x07`, `0x0B`, `0x0F` — połamane ramki.
-
-Sygnał musi przejść przez **konwerter poziomów MAX3232 zasilany z 3,3 V**.
-Napięcie zasilania modułu ustala poziom jego wyjścia TTL, więc zasilenie go
-z 5 V ponownie przekroczyłoby zakres wejścia ESP32.
-
 ### Pomiń gniazdo DB9, użyj pinów kanału
 
 Moduły MAX3232 z gniazdem DB9 są w tym zastosowaniu bezużyteczne: fabryczny
